@@ -1,0 +1,45 @@
+#mainTabpane {
+  -fx-min-width: 800px;
+  -fx-min-height: 500px;
+  -fx-alignment: top;
+}
+
+.labelExistingProducts {
+  -fx-font: NORMAL 20 Tahoma;
+}
+
+.productsTableView {
+  -fx-min-width: 300px;
+  -fx-min-height: 400px;
+}
+
+.productLineLabel {
+  -fx-font: NORMAL 16 Tahoma;
+}
+
+#productLineAddButton {
+  -fx-font: NORMAL 22 Tahoma;
+}
+
+#productLineProduceButton {
+  -fx-font: NORMAL 22 Tahoma;
+}
+
+.productLineText {
+  -fx-font: NORMAL 16 Tahoma;
+}
+
+.pane {
+  -fx-min-width: 800px;
+  -fx-min-height: 450px;
+}
+
+.grid {
+  -fx-min-width: 400px;
+  -fx-min-height: 300px;
+}
+
+#productionLogTextArea {
+  -fx-min-width: 750px;
+  -fx-min-height: 400px;
+}

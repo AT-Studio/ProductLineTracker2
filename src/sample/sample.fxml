@@ -1,0 +1,232 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
+<?import java.net.URL?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<GridPane fx:controller="sample.Controller"
+  xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
+
+  <TabPane
+    fx:id="mainTabpane"
+    tabClosingPolicy="UNAVAILABLE">
+
+    <Tab
+      fx:id="productLineTab"
+      text="Product Line">
+
+      <AnchorPane
+        styleClass="pane">
+
+        <GridPane
+          alignment="TOP_RIGHT" vgap="30" hgap="40"
+          styleClass="grid"
+          AnchorPane.topAnchor="50.0"
+          AnchorPane.rightAnchor="400.0">
+
+          <Label
+            styleClass="productLineLabel"
+            text="Product Name:"
+            GridPane.columnIndex="0"
+            GridPane.rowIndex="0"
+            alignment="center"/>
+
+          <TextField
+            fx:id="productLineName"
+            styleClass="productLineText"
+            GridPane.columnIndex="1"
+            GridPane.rowIndex="0"
+            alignment="center"/>
+
+          <Label
+            styleClass="productLineLabel"
+            text="Manufacturer:"
+            GridPane.columnIndex="0"
+            GridPane.rowIndex="1"
+            alignment="center"/>
+
+          <TextField
+            fx:id="productLineManufacturer"
+            styleClass="productLineText"
+            GridPane.columnIndex="1"
+            GridPane.rowIndex="1"
+            alignment="center"/>
+
+          <Label
+            styleClass="productLineLabel"
+            text="Type:"
+            GridPane.columnIndex="0"
+            GridPane.rowIndex="2"
+            alignment="center"/>
+
+          <ChoiceBox
+            fx:id="productLineType"
+            styleClass="productLineText"
+            GridPane.columnIndex="1"
+            GridPane.rowIndex="2"/>
+
+        </GridPane>
+
+        <Button
+          fx:id="productLineAddButton"
+          text="Add Product"
+          onAction="#addProduct"
+          AnchorPane.topAnchor="250.0"
+          AnchorPane.rightAnchor="400.0"/>
+
+        <Label
+          styleClass="labelExistingProducts"
+          text="Existing Products"
+          AnchorPane.topAnchor="10.0"
+          AnchorPane.leftAnchor="450.0"/>
+
+        <TableView
+          fx:id="productionLineTableView"
+          styleClass="productsTableView"
+          AnchorPane.topAnchor="50.0"
+          AnchorPane.leftAnchor="450.0">
+
+          <columns>
+
+            <TableColumn
+              text="Product Name">
+
+              <cellValueFactory>
+
+                <PropertyValueFactory property="name"/>
+
+              </cellValueFactory>
+
+            </TableColumn>
+
+            <TableColumn
+              text="Manufacturer">
+
+              <cellValueFactory>
+
+                <PropertyValueFactory property="manufacturer"/>
+
+              </cellValueFactory>
+
+            </TableColumn>
+
+            <TableColumn
+              text="Type">
+
+              <cellValueFactory>
+
+                <PropertyValueFactory property="type"/>
+
+              </cellValueFactory>
+
+            </TableColumn>
+
+          </columns>
+
+        </TableView>
+
+      </AnchorPane>
+
+    </Tab>
+
+    <Tab
+      fx:id="produceTab"
+      text="Produce">
+
+      <AnchorPane
+        styleClass="pane">
+
+        <Label
+          styleClass="labelExistingProducts"
+          text="Choose Product"
+          AnchorPane.topAnchor="10.0"
+          AnchorPane.leftAnchor="50.0"/>
+
+        <TableView
+          styleClass="productsTableView"
+          AnchorPane.topAnchor="50.0"
+          AnchorPane.leftAnchor="50.0">
+
+          <columns>
+
+            <TableColumn
+              text="Product Name">
+
+
+            </TableColumn>
+
+            <TableColumn
+              text="Manufacturer">
+
+
+            </TableColumn>
+
+            <TableColumn
+              text="Type">
+
+
+            </TableColumn>
+
+          </columns>
+
+        </TableView>
+
+        <Label
+          styleClass="labelExistingProducts"
+          text="Choose Quantity:"
+          AnchorPane.topAnchor="10.0"
+          AnchorPane.leftAnchor="400.0"
+        />
+
+        <ComboBox
+          fx:id="productLineComboBox"
+          styleClass="productLineText"
+          promptText="Choose"
+          AnchorPane.topAnchor="50.0"
+          AnchorPane.leftAnchor="400.0"/>
+
+        <Button
+          fx:id="productLineProduceButton"
+          text="Produce"
+          onAction="#produceProducts"
+          AnchorPane.topAnchor="150.0"
+          AnchorPane.leftAnchor="400.0"/>
+
+      </AnchorPane>
+
+    </Tab>
+
+    <Tab
+      fx:id="productionLogTab"
+      text="Production Log">
+
+      <AnchorPane
+        styleClass="pane">
+
+        <TextArea
+          fx:id="productionLogTextArea"
+          AnchorPane.topAnchor="30.0"
+          AnchorPane.leftAnchor="25.0"
+        />
+
+      </AnchorPane>
+
+    </Tab>
+
+  </TabPane>
+
+  <stylesheets>
+    <URL value="@main.css"/>
+  </stylesheets>
+
+</GridPane>
