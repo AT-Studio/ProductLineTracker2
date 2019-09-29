@@ -1,5 +1,15 @@
+/**
+ * @author: Alexander Thieler
+ * @description: This class represents a Production Record
+ * @Date: Sep 28 2019
+ */
+
 package sample;
 
+/**
+ * Production record containing production number, product id, serialnumber and the date of
+ * production
+ */
 public class ProductionRecord {
 
   private String productionNumber;

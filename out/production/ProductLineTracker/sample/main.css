@@ -1,3 +1,9 @@
+/**
+ * @author: Alexander Thieler
+ * @description: CSS file responsible for styling elements found in sample.fxml
+ * @Date: Sep 28 2019
+ */
+
 #mainTabpane {
   -fx-min-width: 800px;
   -fx-min-height: 500px;
