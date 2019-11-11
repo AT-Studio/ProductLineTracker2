@@ -1,35 +1,54 @@
 /**
  * @author: Alexander Thieler
- * @description: This class is represents a Product
- * @Date: Sep 28 2019
+ * @description: Base class for every product that exists in this program
+ * @Date: Nov 8 2019
  */
 
 package sample;
 
 /**
- * Product class containing name, type and manufacturer
+ * Product class implements all the core behavior that is shared among all products
  */
-public class Product {
+public class Product implements Item {
 
-  private String name;
-  private String type;
-  private String manufacturer;
+  protected int id;
+  protected String type;
+  protected String manufacturer;
+  protected String name;
+
+  Product(String name, String manufacturer, String type) {
+    this.name = name;
+    this.manufacturer = manufacturer;
+    this.type = type;
+  }
+
+  Product(int id, String name, String manufacturer, String type) {
+    this.id = id;
+    this.name = name;
+    this.manufacturer = manufacturer;
+    this.type = type;
+  }
+
+  @Override
+  public String toString() {
+    return "Name: " + name + "\n" + "Manufacturer: " + manufacturer + "\n" + "Type: "
+        + type + "\n";
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  public String getManufacturer() {
+    return manufacturer;
+  }
+
+  public void setManufacturer(String manufacturer) {
+    this.manufacturer = manufacturer;
+  }
 
   public String getName() {
     return name;
-  }
-
-  /**
-   * Public constructor used to instantiate a Product object
-   *
-   * @param name         name of the product
-   * @param type         the type of product (Audio, Video, Audio/Video)
-   * @param manufacturer the manufacturer of the product
-   */
-  public Product(String name, String type, String manufacturer) {
-    this.name = name;
-    this.type = type;
-    this.manufacturer = manufacturer;
   }
 
   public void setName(String name) {
@@ -42,13 +61,5 @@ public class Product {
 
   public void setType(String type) {
     this.type = type;
-  }
-
-  public String getManufacturer() {
-    return manufacturer;
-  }
-
-  public void setManufacturer(String manufacturer) {
-    this.manufacturer = manufacturer;
   }
 }
