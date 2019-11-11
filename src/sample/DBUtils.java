@@ -25,6 +25,10 @@ public class DBUtils {
   public static final String PRODUCTIONRECORD_SERIAL_NUM = "serial_num";
   public static final String PRODUCTIONRECORD_DATE_PRODUCED = "date_produced";
 
+  public static final String ITEMTYPE_COUNTER_TABLE_NAME = "ItemType_Counter";
+  public static final String ITEMTYPE_COUNTER_TYPE = "type";
+  public static final String ITEMTYPE_COUNTER_COUNT = "count";
+
   /**
    * Private constructor as this class is not meant to be instantiated
    */

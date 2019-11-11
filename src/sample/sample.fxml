@@ -158,6 +158,7 @@
           AnchorPane.leftAnchor="50.0"/>
 
         <TableView
+          fx:id="produceTableView"
           styleClass="productsTableView"
           AnchorPane.topAnchor="50.0"
           AnchorPane.leftAnchor="50.0">
@@ -167,18 +168,33 @@
             <TableColumn
               text="Product Name">
 
+              <cellValueFactory>
+
+                <PropertyValueFactory property="name"/>
+
+              </cellValueFactory>
 
             </TableColumn>
 
             <TableColumn
               text="Manufacturer">
 
+              <cellValueFactory>
+
+                <PropertyValueFactory property="manufacturer"/>
+
+              </cellValueFactory>
 
             </TableColumn>
 
             <TableColumn
               text="Type">
 
+              <cellValueFactory>
+
+                <PropertyValueFactory property="type"/>
+
+              </cellValueFactory>
 
             </TableColumn>
 
