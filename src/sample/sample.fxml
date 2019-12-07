@@ -27,6 +27,60 @@
     tabClosingPolicy="UNAVAILABLE">
 
     <Tab
+            fx:id="employeeTab"
+            text="Employee">
+
+      <AnchorPane
+              styleClass="pane">
+
+        <GridPane
+                alignment="TOP_RIGHT" vgap="30" hgap="40"
+                styleClass="grid"
+                AnchorPane.topAnchor="50.0"
+                AnchorPane.rightAnchor="400.0">
+
+          <Label
+                  styleClass="productLineLabel"
+                  text="Full Name:"
+                  GridPane.columnIndex="0"
+                  GridPane.rowIndex="0"
+                  alignment="center"/>
+
+          <TextField
+                  fx:id="employeeName"
+                  styleClass="productLineText"
+                  GridPane.columnIndex="1"
+                  GridPane.rowIndex="0"
+                  alignment="center"/>
+
+          <Label
+                  styleClass="productLineLabel"
+                  text="Password:"
+                  GridPane.columnIndex="0"
+                  GridPane.rowIndex="1"
+                  alignment="center"/>
+
+          <TextField
+                  fx:id="employeePassword"
+                  styleClass="productLineText"
+                  GridPane.columnIndex="1"
+                  GridPane.rowIndex="1"
+                  alignment="center"/>
+
+        </GridPane>
+
+        <Button
+                fx:id="employeeSignInButton"
+                text="Create Employee"
+                onAction="#createEmployee"
+                AnchorPane.topAnchor="200.0"
+                AnchorPane.rightAnchor="400.0"/>
+
+      </AnchorPane>
+
+    </Tab>
+
+    <Tab
       fx:id="productLineTab"
       text="Product Line">
 

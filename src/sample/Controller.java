@@ -7,7 +7,6 @@
 
 package sample;
 
-import static org.h2.expression.Aggregate.AggregateType.COUNT;
 import static sample.DBUtils.ITEMTYPE_COUNTER_COUNT;
 import static sample.DBUtils.ITEMTYPE_COUNTER_TABLE_NAME;
 import static sample.DBUtils.ITEMTYPE_COUNTER_TYPE;
@@ -70,6 +69,12 @@ public class Controller implements Initializable {
 
   @FXML
   TextArea productionLogTextArea;
+
+  @FXML
+  TextField employeeName;
+
+  @FXML
+  TextField employeePassword;
 
   Connection conn;
 
@@ -311,6 +316,16 @@ public class Controller implements Initializable {
     }
 
     return products;
+  }
+
+  @FXML
+  private void createEmployee() {
+    String name = employeeName.getText();
+    String password = employeePassword.getText();
+
+    if (name == null || name.isEmpty() || password == null || password.isEmpty()) return;
+
+    Employee employee = new Employee(name, password);
   }
 
 }

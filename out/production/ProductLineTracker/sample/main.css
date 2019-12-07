@@ -31,6 +31,10 @@
   -fx-font: NORMAL 22 Tahoma;
 }
 
+#employeeSignInButton {
+  -fx-font: NORMAL 22 Tahoma;
+}
+
 .productLineText {
   -fx-font: NORMAL 16 Tahoma;
 }
