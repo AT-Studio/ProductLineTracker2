@@ -7,20 +7,6 @@
 
 package sample;
 
-import static sample.DBUtils.ITEMTYPE_COUNTER_COUNT;
-import static sample.DBUtils.ITEMTYPE_COUNTER_TABLE_NAME;
-import static sample.DBUtils.ITEMTYPE_COUNTER_TYPE;
-import static sample.DBUtils.PRODUCTIONRECORD_DATE_PRODUCED;
-import static sample.DBUtils.PRODUCTIONRECORD_PRODUCTION_NUM;
-import static sample.DBUtils.PRODUCTIONRECORD_PRODUCT_ID;
-import static sample.DBUtils.PRODUCTIONRECORD_SERIAL_NUM;
-import static sample.DBUtils.PRODUCTIONRECORD_TABLE_NAME;
-import static sample.DBUtils.PRODUCT_ID;
-import static sample.DBUtils.PRODUCT_MANUFACTURER;
-import static sample.DBUtils.PRODUCT_NAME;
-import static sample.DBUtils.PRODUCT_TABLE_NAME;
-import static sample.DBUtils.PRODUCT_TYPE;
-
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -33,16 +19,15 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+
+import static sample.DBUtils.*;
 
 /**
  * Class handles user interactions with the UI as well as DB interactions
@@ -74,7 +59,16 @@ public class Controller implements Initializable {
   TextField employeeName;
 
   @FXML
-  TextField employeePassword;
+  PasswordField employeePassword;
+
+  @FXML
+  Label employeeErrorMsg;
+
+  @FXML
+  Label productLineErrorMsg;
+
+  @FXML
+  Label produceErrorMsg;
 
   Connection conn;
 
@@ -122,12 +116,25 @@ public class Controller implements Initializable {
   protected void addProduct(ActionEvent event) {
     System.out.println("This button will add products");
 
-    String name = productLineName.getText();
-    String manufacturer = productLineManufacturer.getText();
+    String name = productLineName.getText().trim();
+    String manufacturer = productLineManufacturer.getText().trim();
     String type = productLineType.getValue();
 
     if (!name.isEmpty() && !manufacturer.isEmpty() && !type.isEmpty()) {
       try {
+        String query =
+            "SELECT * FROM " + PRODUCT_TABLE_NAME + " WHERE " + PRODUCT_NAME + " = '" + name + "' "
+                +
+                " AND " + PRODUCT_MANUFACTURER + " = '" + manufacturer + "'";
+        ResultSet resultSet = stmt.executeQuery(query);
+        if (resultSet.next()) {
+          productLineErrorMsg.setText("Product already exists");
+          productLineErrorMsg.setVisible(true);
+          resultSet.close();
+          return;
+        }
+        resultSet.close();
+
         String sql = "INSERT INTO " + PRODUCT_TABLE_NAME + "(NAME, TYPE, MANUFACTURER) " +
             "VALUES ('" + name + "', '" + type + "', '" + manufacturer + "');";
 
@@ -135,11 +142,19 @@ public class Controller implements Initializable {
         //to know name, type and manufacturer of the product before being able to generate the statement
         stmt.execute(sql);
 
+        productLineErrorMsg.setText("Product added");
+        productLineErrorMsg.setVisible(true);
+
         setProductionLineTableView();
         setProduceTableView();
       } catch (SQLException e) {
         System.out.println(e.getMessage());
+        productLineErrorMsg.setText("Failed to add product");
+        productLineErrorMsg.setVisible(true);
       }
+    } else {
+      productLineErrorMsg.setText("Please enter a name and manufacturer");
+      productLineErrorMsg.setVisible(true);
     }
   }
 
@@ -165,9 +180,18 @@ public class Controller implements Initializable {
       numItems = Integer.parseInt(productLineComboBox.getSelectionModel().getSelectedItem());
     } catch (Exception e) {
       // invalid entry
+      produceErrorMsg.setText("Please enter a number");
+      productLineErrorMsg.setVisible(true);
+      return;
     }
 
-    if (product != null && numItems > 0) {
+    if (numItems <= 0) {
+      produceErrorMsg.setText("Please enter a number greater than 0");
+      productLineErrorMsg.setVisible(true);
+      return;
+    }
+
+    if (product != null) {
 
       int currCount = 0;
 
@@ -200,6 +224,9 @@ public class Controller implements Initializable {
         rs.close();
       } catch (SQLException e) {
         System.out.println(e.getMessage());
+        produceErrorMsg.setText("Failed to produce products");
+        productLineErrorMsg.setVisible(true);
+        return;
       }
 
       for (int i = 1; i <= numItems; i++) {
@@ -219,9 +246,19 @@ public class Controller implements Initializable {
           preparedStatement.close();
         } catch (SQLException e) {
           System.out.println(e.getMessage());
+          produceErrorMsg.setText("Failed to produce products");
+          productLineErrorMsg.setVisible(true);
+          return;
         }
       }
+    } else {
+      produceErrorMsg.setText("Please select a product");
+      productLineErrorMsg.setVisible(true);
+      return;
     }
+
+    produceErrorMsg.setText("Products added to production");
+    productLineErrorMsg.setVisible(true);
 
     setProductionLog();
   }
@@ -323,9 +360,39 @@ public class Controller implements Initializable {
     String name = employeeName.getText();
     String password = employeePassword.getText();
 
-    if (name == null || name.isEmpty() || password == null || password.isEmpty()) return;
+    if (name == null || name.isEmpty() || password == null || password.isEmpty()) {
+      employeeErrorMsg.setText("Please enter a name and password");
+      employeeErrorMsg.setVisible(true);
+      return;
+    } else {
+      employeeErrorMsg.setVisible(false);
+    }
 
     Employee employee = new Employee(name, password);
+
+    try {
+      String sql = "INSERT INTO EMPLOYEE(USERNAME, PASSWORD, EMAIL) VALUES (?, ?, ?)";
+      PreparedStatement preparedStatement = conn.prepareStatement(sql);
+      preparedStatement.setString(1, employee.getUsername());
+      preparedStatement.setString(2, employee.getPassword());
+      preparedStatement.setString(3, employee.getEmail());
+
+      preparedStatement.execute();
+      preparedStatement.close();
+
+      employeeErrorMsg.setText("Employee created");
+      employeeErrorMsg.setVisible(true);
+    } catch (SQLException e) {
+      employeeErrorMsg.setText("Could not create employee");
+      employeeErrorMsg.setVisible(true);
+    }
+  }
+
+  private String reverseString(String pw) {
+      if (pw.length() == 1) {
+          return pw;
+      }
+    return reverseString(pw.substring(1, pw.length())) + pw.charAt(0);
   }
 
 }

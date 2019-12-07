@@ -19,6 +19,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 
+<?import javafx.scene.control.PasswordField?>
 <GridPane fx:controller="sample.Controller"
   xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
 
@@ -27,54 +28,60 @@
     tabClosingPolicy="UNAVAILABLE">
 
     <Tab
-            fx:id="employeeTab"
-            text="Employee">
+      fx:id="employeeTab"
+      text="Employee">
 
       <AnchorPane
-              styleClass="pane">
+        styleClass="pane">
 
         <GridPane
-                alignment="TOP_RIGHT" vgap="30" hgap="40"
-                styleClass="grid"
-                AnchorPane.topAnchor="50.0"
-                AnchorPane.rightAnchor="400.0">
+          alignment="TOP_RIGHT" vgap="30" hgap="40"
+          styleClass="grid"
+          AnchorPane.topAnchor="50.0"
+          AnchorPane.rightAnchor="400.0">
 
           <Label
-                  styleClass="productLineLabel"
-                  text="Full Name:"
-                  GridPane.columnIndex="0"
-                  GridPane.rowIndex="0"
-                  alignment="center"/>
+            styleClass="productLineLabel"
+            text="Full Name:"
+            GridPane.columnIndex="0"
+            GridPane.rowIndex="0"
+            alignment="center"/>
 
           <TextField
-                  fx:id="employeeName"
-                  styleClass="productLineText"
-                  GridPane.columnIndex="1"
-                  GridPane.rowIndex="0"
-                  alignment="center"/>
+            fx:id="employeeName"
+            styleClass="productLineText"
+            GridPane.columnIndex="1"
+            GridPane.rowIndex="0"
+            alignment="center"/>
 
           <Label
-                  styleClass="productLineLabel"
-                  text="Password:"
-                  GridPane.columnIndex="0"
-                  GridPane.rowIndex="1"
-                  alignment="center"/>
+            styleClass="productLineLabel"
+            text="Password:"
+            GridPane.columnIndex="0"
+            GridPane.rowIndex="1"
+            alignment="center"/>
 
-          <TextField
-                  fx:id="employeePassword"
-                  styleClass="productLineText"
-                  GridPane.columnIndex="1"
-                  GridPane.rowIndex="1"
-                  alignment="center"/>
+          <PasswordField
+            fx:id="employeePassword"
+            styleClass="productLineText"
+            GridPane.columnIndex="1"
+            GridPane.rowIndex="1"
+            alignment="center"/>
 
         </GridPane>
 
         <Button
-                fx:id="employeeSignInButton"
-                text="Create Employee"
-                onAction="#createEmployee"
-                AnchorPane.topAnchor="200.0"
-                AnchorPane.rightAnchor="400.0"/>
+          fx:id="createEmployeeButton"
+          text="Create Employee"
+          onAction="#createEmployee"
+          AnchorPane.topAnchor="200.0"
+          AnchorPane.rightAnchor="400.0"/>
+
+        <Label
+          fx:id="employeeErrorMsg"
+          styleClass="errorMsg"
+          AnchorPane.topAnchor="350.0"
+          AnchorPane.rightAnchor="400.0"/>
 
       </AnchorPane>
 
@@ -141,6 +148,12 @@
           text="Add Product"
           onAction="#addProduct"
           AnchorPane.topAnchor="250.0"
+          AnchorPane.rightAnchor="400.0"/>
+
+        <Label
+          fx:id="productLineErrorMsg"
+          styleClass="errorMsg"
+          AnchorPane.topAnchor="350.0"
           AnchorPane.rightAnchor="400.0"/>
 
         <Label
@@ -275,6 +288,12 @@
           text="Produce"
           onAction="#produceProducts"
           AnchorPane.topAnchor="150.0"
+          AnchorPane.leftAnchor="400.0"/>
+
+        <Label
+          fx:id="produceErrorMsg"
+          styleClass="errorMsg"
+          AnchorPane.topAnchor="350.0"
           AnchorPane.leftAnchor="400.0"/>
 
       </AnchorPane>

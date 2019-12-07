@@ -29,6 +29,12 @@ public class DBUtils {
   public static final String ITEMTYPE_COUNTER_TYPE = "type";
   public static final String ITEMTYPE_COUNTER_COUNT = "count";
 
+  public static final String EMPLOYEE_TABLE_NAME = "Employee";
+  public static final String EMPLOYEE_ID = "id";
+  public static final String EMPLOYEE_USERNAME = "username";
+  public static final String EMPLOYEE_PASSWORD = "password";
+  public static final String EMPLOYEE_EMAIL = "email";
+
   /**
    * Private constructor as this class is not meant to be instantiated
    */
