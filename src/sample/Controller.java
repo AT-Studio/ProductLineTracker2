@@ -7,6 +7,7 @@
 
 package sample;
 
+import java.io.File;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import java.util.Scanner;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -320,6 +322,15 @@ public class Controller implements Initializable {
     final String USER = "";
     final String PASS = "";
 
+    File file = new File("./src/sample/credentials");
+    try {
+      Scanner sc = new Scanner(file);
+      String pw = reverseString(sc.nextLine());
+      System.out.println(pw);
+    } catch (Exception e) {
+      System.out.println("Unable to read file: " + e.getMessage());
+    }
+
     try {
       conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
@@ -355,6 +366,10 @@ public class Controller implements Initializable {
     return products;
   }
 
+  /**
+   * Creates a new employee after user clicks "Create Employee". The new employee is stored in the
+   * database
+   */
   @FXML
   private void createEmployee() {
     String name = employeeName.getText();
@@ -388,10 +403,16 @@ public class Controller implements Initializable {
     }
   }
 
+  /**
+   * Reverses the string passed to the method using recursion.
+   *
+   * @param pw the password (String) to be reversed
+   * @return the reversed password (String)
+   */
   private String reverseString(String pw) {
-      if (pw.length() == 1) {
-          return pw;
-      }
+    if (pw.length() == 1) {
+      return pw;
+    }
     return reverseString(pw.substring(1, pw.length())) + pw.charAt(0);
   }
 
